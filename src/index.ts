@@ -16,7 +16,7 @@ const middlwareJson = express.json();
 
 app.use(middlwareJson);
 
-let db: SamuraiViewModel[] = [{id: 1, name: 'Samurai'}, {id: 2, name: 'Ninja'}, {id: 3, name: 'Shinobi'}]
+let db: SamuraiViewModel[] = [{id: 1, name: 'Samurai'}, {id: 2, name: 'Ninja'}, {id: 3, name: 'Shinobi'}, {id: 4, name: 'Shinobi'}, {id: 5, name: 'Samurai'}]
 
 app.get('/', (req, res: Response<SamuraiViewModel[]>) => {
     res.json(db)
