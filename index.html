@@ -7,36 +7,4 @@
 <body>
 
 </body>
-<script>
-    let http = require('http')
-
-    let counter = 0
-
-    const server = http.createServer((req, res) => {
-
-        switch (req.url) {
-            case '/students':
-                res.write('students ')
-                counter++
-                break;
-            case '/teachers':
-                res.write('teachers ')
-                counter++
-                break;
-            default:
-                res.write('404 ')
-                break;
-        }
-
-        res.write(<head>
-            <link rel="favicon" href="favicon.png"/>
-        </head>)
-
-        res.end()
-
-    })
-
-    server.listen(3000)
-
-</script>
 </html>
