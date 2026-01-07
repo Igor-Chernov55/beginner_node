@@ -10,8 +10,6 @@ import { HttpStatusCode } from './enums';
 const app = express();
 const port = 3000;
 
-// Root Route: GET request to http://localhost:3000/
-
 const middlwareJson = express.json();
 
 app.use(middlwareJson);
