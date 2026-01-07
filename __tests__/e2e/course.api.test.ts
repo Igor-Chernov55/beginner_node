@@ -1,9 +1,9 @@
 import request from 'supertest';
-import {app} from "../../src";
 import {HttpStatusCode} from "../../src/enums";
 import {SamuraiViewModel} from "../../src/models/SamuraiViewModel";
 import {CreateSamuraiModel} from "../../src/models/CreateSamuraiModel";
 import {DeleteSamuraiModel} from "../../src/models/DeleteSamuraiModel";
+import app from "../../src";
 
 describe('Course API', () => {
 

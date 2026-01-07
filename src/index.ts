@@ -7,7 +7,7 @@ import { UpdateSamuraiModel } from './models/UpdateSamuraiModel';
 import { DeleteSamuraiModel } from './models/DeleteSamuraiModel';
 import { HttpStatusCode } from './enums';
 
-export const app = express();
+const app = express();
 const port = 3000;
 
 // Root Route: GET request to http://localhost:3000/
@@ -53,20 +53,18 @@ app.post('/createSamurai', (req: RequestWithBody<CreateSamuraiModel>, res: Respo
 app.put('/updateSamurai', (req: RequestWithBody<UpdateSamuraiModel>, res) => {
     if (!req.body.name) {
         res.sendStatus(HttpStatusCode.BadRequest_400);
-        return
+        return;
     }
 
-    if (!db.find(value => value.id == +req.body.id)) {
-        res.sendStatus(HttpStatusCode.NotFound_404)
-        return
+    const samuraiIndex = db.findIndex(value => value.id === +req.body.id);
+    if (samuraiIndex === -1) {
+        res.sendStatus(HttpStatusCode.NotFound_404);
+        return;
     }
 
-    else {
-        db = [...db, {id: req.body.id, name: req.body.name}]
-        res.status(HttpStatusCode.OK_200).send({message: 'Samurai updated successfully', samurai: req.body.name});
-        return
-    }
-
+    // Обновляем существующего самурая
+    db[samuraiIndex] = {id: req.body.id, name: req.body.name};
+    res.status(HttpStatusCode.OK_200).send({message: 'Samurai updated successfully', samurai: req.body.name});
 });
 
 app.delete('/killSamurai', (req: RequestWithBody<DeleteSamuraiModel>, res: Response<SamuraiViewModel>) => {
@@ -90,6 +88,8 @@ app.delete('/killAllSamurais', (req, res) => {
     db = []
     res.status(HttpStatusCode.NoContent_204).send({message: 'All Samurais deleted successfully'});
 })
+
+export default app;
 
 // Start the serverhttp://localhost:3000/samurais
 app.listen(port, () => {
